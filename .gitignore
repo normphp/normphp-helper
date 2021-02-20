@@ -1,0 +1,7 @@
+.idea
+/php/
+/composer/composer.phar
+/uploads/cacert.pem
+/helper/config/route/
+/helper/app/
+/helper/config/
