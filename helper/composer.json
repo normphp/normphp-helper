@@ -34,10 +34,7 @@
     "autoload": {
         "psr-4": {
             "app\\": "app/",
-            "model\\": "model/",
-            "tests\\": "tests/",
             "config\\": "config/",
-            "service\\": "service/",
             "authority\\": "authority/",
             "container\\": "container/"
         },
