@@ -1,13 +1,13 @@
 # 
 normphp-helper normphp脚手架助手
 ## 特点需知
-* normphp-helper 不是包括nginx、MySQL等服务，只是单纯的多版本php环境支持
+* normphp-helper 不包括nginx、MySQL等服务，只是单纯的多版本php环境支持
 * 脚手架助手的开发初衷是尽可能的保证PHP开发人员本地开发电脑的干净整洁，php项目的运行统一使用中心开发服务器DNMP运行保证开发运行环境与生产运行环境无差异
 * 简单说明一下本脚手架助手的使用场景：
-    1、不考虑或者不常用本地环境执行php项目
-    2、本地需要执行composer命令行操作
-    4、需要快速切换php[7.1|7.2|7.3|7.4|8.0]执行php、composer相关操作
-    5、适合normphp框架使用者、开发者
+  * 不考虑或者不常用本地环境执行php项目
+  * 本地需要执行composer命令行操作
+  * 需要快速切换php[7.1|7.2|7.3|7.4|8.0]执行php、composer相关操作
+  * 适合normphp框架使用者、开发者
 ## 快速入门
 ### 注意事项：
     * 在安装normphp-helper时会自动重写当前系统的PHP环境变量为PHP8.0+
