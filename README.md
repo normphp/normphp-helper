@@ -100,7 +100,7 @@ normphp-helper  克隆或者下载解压得到的项目目录
 ├─update-normphp.bat         复杂命令实现项目的更新（helper命令下项目）
 注意：命令结构可能会更新变化
 ~~~
-## 一些注意地址
+## 一些资源地址
         php下载地址
         https://windows.php.net/download/
         php扩展
@@ -108,12 +108,3 @@ normphp-helper  克隆或者下载解压得到的项目目录
         phpsdk
         https://github.com/microsoft/php-sdk-binary-tools/archive/php-sdk-2.2.0.zip
         https://github.com/microsoft/php-sdk-binary-tools/tags
-## 自行初始化
-    执行initial.dat
-    执行php -v
-    执行php\8.0\x86\php.exe execute.php   默认使用php8.0 x86
-### execute.php
-    判断是否已经有composer文件
-    执行命令注册 php环境变量  normphp
-    执行注册 composer
-    执行
