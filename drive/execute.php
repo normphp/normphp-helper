@@ -8,9 +8,14 @@ class execute
      */
     const NEED_PHP_VERSION = '8.0.0';
     /**
-     * composer.phar 下载地址
+     * composer.phar 下载地址最新版本
      */
     const COMPOSER_PHAR_URL = 'https://install.phpcomposer.com/composer.phar';
+
+    /**
+     * composer.phar 下载地址 ^1 版本
+     */
+    const COMPOSER_1_PHAR_URL = 'https://getcomposer.org/composer-1.phar';
     /**
      * 证书下载地址
      */
@@ -262,8 +267,16 @@ class execute
             $this->msg('准备安装Composer');
             $this->composer =false;
         }
+        exec('composer-1 -V',$res);
+        if (!empty($res)){
+            $this->msg('已安装Composer 1.X:  '.$res[0]);
+        }else{
+            $this->msg('准备安装Composer 1.X');
+            $this->composer =false;
+        }
         # 强制更新Composer
         $this->getComposerPhar();
+        $this->getComposerPhar('-1');
 
         usleep(1400000);
         $res = [];
@@ -308,19 +321,19 @@ class execute
      * 判断是否已经有composer.phar文件,没有就下载
      * @throws Exception
      */
-    public  function  getComposerPhar()
+    public  function  getComposerPhar($v='')
     {
-        if (file_exists($this->addPath['composer'].'\\composer.phar')){
-            $this->msg('composer.phar存在无需下载！');
+        if (file_exists($this->addPath['composer'].'\\composer'.$v.'.phar')){
+            $this->msg('composer'.$v.'.phar存在无需下载！');
         }else{
-            $this->msg('composer.phar不存在，正在下载！');
+            $this->msg('composer'.$v.'.phar不存在，正在下载！');
             $this->msg('如长时间界面不动请：按回车键  ..............');
             # 请求地址
-            if ((new RequestDownload())->downFile(self::COMPOSER_PHAR_URL,'composer.phar',$this->addPath['composer'].'\\')){
-                $this->msg('composer.phar 下载成功！！');
+            if ((new RequestDownload())->downFile($v===''?self::COMPOSER_PHAR_URL:self::COMPOSER_1_PHAR_URL,'composer'.$v.'.phar',$this->addPath['composer'].'\\')){
+                $this->msg('composer'.$v.'.phar 下载成功！！');
             }else{
-                $this->msg('composer.phar 下载失败！！');
-                $this->msg('url：'.self::COMPOSER_PHAR_URL,true);
+                $this->msg('composer'.$v.'.phar 下载失败！！');
+                $this->msg('url：'.($v===''?self::COMPOSER_PHAR_URL:self::COMPOSER_1_PHAR_URL),true);
             }
             # 写入本地
         }
