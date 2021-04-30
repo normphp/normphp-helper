@@ -28,6 +28,8 @@
     },
     "config": {
         "process-timeout": 1800,
+        "platform-check":true,
+        "optimize-autoloader": true,
         "gitlab-oauth": {
         }
     },
