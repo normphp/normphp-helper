@@ -75,7 +75,7 @@ class Execute
      * @var string[]
      */
     public  $addPath = [
-        'php'=>'\\php\\8.0\\x86',//php 默认8.0
+        'php'=>'\\php\\base',//默认 php
         'composer'=>'\\composer',//composer 程序
         'helper-tool'=>'\\helper\\public',//脚手架->normphp 框架程序
     ];
@@ -98,11 +98,11 @@ class Execute
     }
 
     /**
-     * 初始化php8的ini
+     * 初始化base php的ini
      */
     public function initPhpIni(){
-        $this->msg('开始初始化:PHP8.1配置文件php.ini');
-        copy($this->dir.'\\php\\8.1\php.ini',$this->dir.'\\php\\8.1\x86\php.ini');
+        #$this->msg('开始初始化:PHP8.1配置文件php.ini');
+        #copy($this->dir.'\\php\\8.1\php.ini',$this->dir.'\\php\\8.1\x64\php.ini');
     }
     /**
      * 初始化开始
@@ -132,9 +132,9 @@ class Execute
     {
         echo "*====================================================================================*\n\r";
         echo "*当前为normphp 脚手架初始化脚本：                                                    *\n\r";
-        echo "*  1、脚本需使用PHP8.0.0+版本。                                                      *\n\r";
-        echo "*  2、脚本判断是否已有PHP环境变量，如没有会使用PHP8.0路径创建环境变量。              *\n\r";
-        echo "*     有会使用PHP8.0路径覆盖环境变量。                                               *\n\r";
+        echo "*  1、脚本需使用PHP".self::NEED_PHP_VERSION."+版本。                                                      *\n\r";
+        echo "*  2、脚本判断是否已有PHP环境变量，如没有会使用PHP".self::NEED_PHP_VERSION."路径创建环境变量。              *\n\r";
+        echo "*     有会使用PHP".self::NEED_PHP_VERSION."路径覆盖环境变量。                                               *\n\r";
         echo "*  3、脚本判断是否安装composer，如否就下载安装配置composer环境变量。                 *\n\r";
         echo "*  4、脚本判断是否已有normphp环境变量，如否就执行命令进行环境变量配置。              *\n\r";
         echo "*  5、如需切换PHP7.2、PHP7.3、PHP7.4，执行normphp set php [7.2|7.3|7.4]切换。        *\n\r";
@@ -308,7 +308,7 @@ class Execute
      */
     public function installNormPhp()
     {
-        $cli = $this->dir.'/php/8.0/x86/php.exe '.$this->dir.'/composer/composer.phar  install -d '.$this->dir.'/helper/';
+        $cli = $this->dir.'/php/base/php.exe '.$this->dir.'/composer/composer.phar  install -d '.$this->dir.'/helper/';
         $this->msg('安装normphp命令行框架:'.PHP_EOL);
         $this->msg($cli);
         exec($cli,$res);
@@ -319,7 +319,7 @@ class Execute
      */
     public function updateNormPhp()
     {
-        $cli = $this->dir.'/php/8.0/x86/php.exe '.$this->dir.'/composer/composer.phar  update -d '.$this->dir.'/helper/';
+        $cli = $this->dir.'/php/base/php.exe '.$this->dir.'/composer/composer.phar  update -d '.$this->dir.'/helper/';
 
         $this->msg('更新 normphp 命令行框架 '.'exec->['.$cli.']');
         $this->msg('命令行框架root目录：'.$this->dir.'/helper/');

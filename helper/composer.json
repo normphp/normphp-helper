@@ -17,7 +17,7 @@
     "require": {
         "normphp/staging":"dev-main",
         "normphp/normphp-helper-tool": "dev-main",
-        "php": ">=8.0",
+        "php": ">=8.1",
         "ext-json": "*"
     },
     "repositories": {

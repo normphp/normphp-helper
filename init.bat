@@ -1,8 +1,8 @@
 @ECHO OFF
 setlocal DISABLEDELAYEDEXPANSION
 echo *==========================The execution environment=================================*
-php\8.0\x86\php.exe -v
-php\8.0\x86\php.exe execute.php announcement
+php\base\php.exe -v
+php\base\php.exe execute.php announcement
 pause
-php\8.0\x86\php.exe execute.php
+php\base\php.exe execute.php
 pause

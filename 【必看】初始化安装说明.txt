@@ -1,1 +1,4 @@
-默认本脚手架项目仓库不包含PHP8.0和normphp-helper命令行
+默认本脚手架项目仓库不包含PHP8.1和normphp-helper命令行
+PHP8.1 下载地址
+下载时选择 VS16 x64 Non Thread Safe 的 zip 包
+https://windows.php.net/download/
