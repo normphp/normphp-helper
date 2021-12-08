@@ -1,21 +1,21 @@
 <?php
 
 
-class execute
+class Execute
 {
     /**
      * 需要的执行php版本
      */
-    const NEED_PHP_VERSION = '8.0.0';
+    const NEED_PHP_VERSION = '8.1.0';
     /**
      * composer.phar 下载地址最新版本
      */
-    const COMPOSER_PHAR_URL = 'https://install.phpcomposer.com/composer.phar';
+    const COMPOSER_PHAR_URL = 'https://getcomposer.org/download/latest-2.x/composer.phar';
 
     /**
      * composer.phar 下载地址 ^1 版本
      */
-    const COMPOSER_1_PHAR_URL = 'https://getcomposer.org/composer-1.phar';
+    const COMPOSER_1_PHAR_URL = 'https://getcomposer.org/download/latest-1.x/composer.phar';
     /**
      * 证书下载地址
      */
@@ -31,6 +31,15 @@ class execute
         'VC13(32+64)'=>'https://www.php.cn/xiazai/download/1483',
         'VC14(32+64)'=>'https://www.php.cn/xiazai/download/1484',
     ];
+    /**
+     * 标准时间格式
+     */
+    const DATE_FORMAT = 'Y-m-d H:i:s';
+    /**
+     * 标准等待提示
+     */
+    const MSG_AWAIT_ENTER = '如长时间界面不动请：按回车键  ..............';
+
     /**
      * 根目录
      * @var string
@@ -92,8 +101,8 @@ class execute
      * 初始化php8的ini
      */
     public function initPhpIni(){
-        $this->msg('开始初始化:PHP8配置文件php.ini');
-        copy($this->dir.'\\php\\8.0\php.ini',$this->dir.'\\php\\8.0\x86\php.ini');
+        $this->msg('开始初始化:PHP8.1配置文件php.ini');
+        copy($this->dir.'\\php\\8.1\php.ini',$this->dir.'\\php\\8.1\x86\php.ini');
     }
     /**
      * 初始化开始
@@ -102,7 +111,7 @@ class execute
     public  function init()
     {
         $this->msg($this->eol);
-        $this->msg('当前时间:'.date('Y-m-d H:i:s'));
+        $this->msg('当前时间:'.date(self::DATE_FORMAT));
         $this->msg('开始初始化:注册安装PHP、Composer');
         #检查下载证书
         $this->getCaCert();
@@ -140,8 +149,8 @@ class execute
         $VariateRes = $this->refreshVariateMatch();
         # 判断是否是第一次安装初始化是就写入第一次的环境变量备份
         if (!is_file($this->dir.'\\log\\original.log')){
-            file_put_contents($this->dir.'\\log\\original.log',json_encode(['date'=>date('Y-m-d H:i:s'),'data'=>$VariateRes]));
-            file_put_contents($this->dir.'\\log\\'.date('Y-m-d H:i:s').'original.path',json_encode(implode(';',$VariateRes)));
+            file_put_contents($this->dir.'\\log\\original.log',json_encode(['date'=>date(self::DATE_FORMAT),'data'=>$VariateRes]));
+            file_put_contents($this->dir.'\\log\\'.date(self::DATE_FORMAT).'original.path',json_encode(implode(';',$VariateRes)));
         }
 
         $this->quondam['quondam'] = $VariateRes;
@@ -195,7 +204,7 @@ class execute
     {
         if (!file_exists($this->dir.'\\uploads\\cacert.pem')) {
             $this->msg('下载:cacert.pem');
-            $this->msg('如长时间界面不动请：按回车键  ..............');
+            $this->msg(self::MSG_AWAIT_ENTER);
             if ((new RequestDownload())->downFile(self::CACERT_PEM_URL,'cacert.pem') ){
                 $this->msg('cacert.pem下载成功');
             }else{
@@ -214,7 +223,7 @@ class execute
             $this->msg('vc14.zip存在无需下载！');
         }else{
             $this->msg('vc14.zip不存在，正在下载！');
-            $this->msg('如长时间界面不动请：按回车键  ..............');
+            $this->msg(self::MSG_AWAIT_ENTER);
             # 请求地址
             $header =[
                 'Referer: https://www.php.cn/',
@@ -327,7 +336,7 @@ class execute
             $this->msg('composer'.$v.'.phar存在无需下载！');
         }else{
             $this->msg('composer'.$v.'.phar不存在，正在下载！');
-            $this->msg('如长时间界面不动请：按回车键  ..............');
+            $this->msg(self::MSG_AWAIT_ENTER);
             # 请求地址
             if ((new RequestDownload())->downFile($v===''?self::COMPOSER_PHAR_URL:self::COMPOSER_1_PHAR_URL,'composer'.$v.'.phar',$this->addPath['composer'].'\\')){
                 $this->msg('composer'.$v.'.phar 下载成功！！');
