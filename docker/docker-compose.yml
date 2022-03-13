@@ -1,0 +1,57 @@
+version: '3.3'
+services:
+
+  php-fpm-8.0-node-1:
+    container_name: php-fpm-8.0-node-1
+    env_file:
+      - .env
+    image: ${PHP_8_0_IMAGE}
+    networks:
+      - ${NETWORKS}
+    volumes:
+      - ../../:/www/:rw
+      - ./nginx/html/:/www/default/:rw
+      - ./nginx/phplogs/php-fpm-8.0:/var/log/php-fpm:rw
+    restart: always
+    command: php-fpm
+
+  php-fpm-8.0-node-2:
+    container_name: php-fpm-8.0-node-2
+    env_file:
+      - .env
+    image: ${PHP_8_0_IMAGE}
+    networks:
+      - ${NETWORKS}
+    volumes:
+      - ../../:/www/:rw
+      - ./nginx/html/:/www/default/:rw
+      - ./nginx/phplogs/php-fpm-8.0:/var/log/php-fpm:rw
+    restart: always
+    command: php-fpm
+
+
+  nginx:
+    container_name: nginx
+    env_file:
+      - .env
+    image: ${NGINX_NAME}
+    depends_on:
+      - php-fpm-8.0-node-1
+      - php-fpm-8.0-node-2
+    networks:
+      - ${NETWORKS}
+    volumes:
+      - ./nginx/conf/nginx_upstream.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/logs/:/var/log/nginx/:rw
+      - ./nginx/conf/:/etc/nginx/conf/:ro
+      - ./nginx/wwwlogs/:/wwwlogs/:rw
+      - ./nginx/html/:/www/default/:rw
+      - ../../:/www/:rw
+    ports:
+      - "${NGINX_PORTS_HTTP}:80"
+      - "${NGINX_PORTS_HTTPS}:443"
+      - "${NGINX_PORTS_HTTP2}:8080"
+    restart: always
+    command: nginx -g 'daemon off;'
+networks:
+  normphp:
