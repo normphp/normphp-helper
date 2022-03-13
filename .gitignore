@@ -4,3 +4,5 @@
 /composer/composer-1.phar
 /uploads/cacert.pem
 /helper/
+/docker/nginx/wwwlogs/
+/docker/nginx/logs/
