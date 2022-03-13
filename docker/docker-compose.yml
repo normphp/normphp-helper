@@ -10,7 +10,7 @@ services:
       - ${NETWORKS}
     volumes:
       - ../../:/www/:rw
-      - ./phplogs/php-fpm-8.0:/var/log/php-fpm:rw
+      - ./logs/php-fpm-8.0:/var/log/php-fpm:rw
     restart: always
     command: php-fpm
 
@@ -23,7 +23,7 @@ services:
       - ${NETWORKS}
     volumes:
       - ../../:/www/:rw
-      - ./phplogs/php-fpm-8.0:/var/log/php-fpm:rw
+      - ./logs/php-fpm-8.0:/var/log/php-fpm:rw
     restart: always
     command: php-fpm
 
@@ -39,9 +39,9 @@ services:
       - ${NETWORKS}
     volumes:
       - ./nginx/conf/nginx_upstream.conf:/etc/nginx/nginx.conf:ro
-      - ./nginxlogs/:/var/log/nginx/:rw
+      - ./logs/nginx/:/var/log/nginx/:rw
       - ./nginx/conf/:/etc/nginx/conf/:ro
-      - ./wwwlogs/:/wwwlogs/:rw
+      - ./logs/www/:/wwwlogs/:rw
       - ../../:/www/:rw
     ports:
       - "${NGINX_PORTS_HTTP}:80"
