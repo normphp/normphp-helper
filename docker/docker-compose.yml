@@ -10,8 +10,7 @@ services:
       - ${NETWORKS}
     volumes:
       - ../../:/www/:rw
-      - ./nginx/html/:/www/default/:rw
-      - ./nginx/phplogs/php-fpm-8.0:/var/log/php-fpm:rw
+      - ./phplogs/php-fpm-8.0:/var/log/php-fpm:rw
     restart: always
     command: php-fpm
 
@@ -24,11 +23,9 @@ services:
       - ${NETWORKS}
     volumes:
       - ../../:/www/:rw
-      - ./nginx/html/:/www/default/:rw
-      - ./nginx/phplogs/php-fpm-8.0:/var/log/php-fpm:rw
+      - ./phplogs/php-fpm-8.0:/var/log/php-fpm:rw
     restart: always
     command: php-fpm
-
 
   nginx:
     container_name: nginx
@@ -42,10 +39,9 @@ services:
       - ${NETWORKS}
     volumes:
       - ./nginx/conf/nginx_upstream.conf:/etc/nginx/nginx.conf:ro
-      - ./nginx/logs/:/var/log/nginx/:rw
+      - ./nginxlogs/:/var/log/nginx/:rw
       - ./nginx/conf/:/etc/nginx/conf/:ro
-      - ./nginx/wwwlogs/:/wwwlogs/:rw
-      - ./nginx/html/:/www/default/:rw
+      - ./wwwlogs/:/wwwlogs/:rw
       - ../../:/www/:rw
     ports:
       - "${NGINX_PORTS_HTTP}:80"
