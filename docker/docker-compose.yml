@@ -1,29 +1,28 @@
 version: '3.3'
 services:
-
-  php-fpm-8.0-node-1:
-    container_name: php-fpm-8.0-node-1
+  php-fpm-8.1-node-1:
+    container_name: php-fpm-8.1-node-1
     env_file:
       - .env
-    image: ${PHP_8_0_IMAGE}
+    image: ${PHP_8_1_IMAGE}
     networks:
       - ${NETWORKS}
     volumes:
       - ../../:/www/:rw
-      - ./logs/php-fpm-8.0:/var/log/php-fpm:rw
+      - ./logs/php-fpm-8.1:/var/log/php-fpm:rw
     restart: always
     command: php-fpm
 
-  php-fpm-8.0-node-2:
-    container_name: php-fpm-8.0-node-2
+  php-fpm-8.1-node-2:
+    container_name: php-fpm-8.1-node-2
     env_file:
       - .env
-    image: ${PHP_8_0_IMAGE}
+    image: ${PHP_8_1_IMAGE}
     networks:
       - ${NETWORKS}
     volumes:
       - ../../:/www/:rw
-      - ./logs/php-fpm-8.0:/var/log/php-fpm:rw
+      - ./logs/php-fpm-8.1:/var/log/php-fpm:rw
     restart: always
     command: php-fpm
 
@@ -33,8 +32,8 @@ services:
       - .env
     image: ${NGINX_NAME}
     depends_on:
-      - php-fpm-8.0-node-1
-      - php-fpm-8.0-node-2
+      - php-fpm-8.1-node-1
+      - php-fpm-8.1-node-2
     networks:
       - ${NETWORKS}
     volumes:
